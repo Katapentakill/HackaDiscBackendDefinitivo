@@ -4,7 +4,7 @@ const logger = require('morgan');
 const db = require('../db/connection'); // Asegúrate de ajustar la ruta según la estructura de tu proyecto
 const User = require('./user');
 const Role = require('./role');// Asegúrate de tener los modelos correctamente definidos
-const Multicompani = require('./multicompanies');
+const Multicompani = require('./multicompany');
 const Worker = require('./worker');
 const Evaluation = require('./evaluation');
 
