@@ -2,9 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const logger = require('morgan');
 const db = require('../db/connection'); // Asegúrate de ajustar la ruta según la estructura de tu proyecto
-const User = require('./user');
+const User = require('./user')
 const Role = require('./role');// Asegúrate de tener los modelos correctamente definidos
-const Multicompani = require('./multicompanies');
+const Multicompany = require('./multicompany');
 const Worker = require('./worker');
 const Evaluation = require('./evaluation');
 
@@ -32,7 +32,7 @@ class Server {
             await db.authenticate(); // Sincronizar modelos con la base de datos
             await User.sync({ force: false });
             await Role.sync({ force: false });
-            await Multicompani.sync({ force: false });
+            await Multicompany.sync({ force: false });
             await Worker.sync({ force: false });
             await Evaluation.sync({ force: false });
             console.log('Base de datos conectada');

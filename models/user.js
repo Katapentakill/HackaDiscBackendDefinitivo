@@ -4,10 +4,15 @@ const db = require("../db/connection");
 class User extends Model {}
 
 User.init({
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true
+        primaryKey: false
     },
     password: {
         type: DataTypes.STRING,
@@ -27,7 +32,7 @@ User.init({
     },
     company_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: 'Multicompanies',
             key: 'main_company_id'
@@ -36,6 +41,12 @@ User.init({
     area_id: {
         type: DataTypes.INTEGER,
         allowNull: true
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
     }
 }, {
     sequelize: db,

@@ -7,14 +7,14 @@ Multicompany.init({
     main_company_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     sub_company_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
         references: {
-            model: 'Multicompanies', // This references the same table
+            model: 'Multicompanies',
             key: 'main_company_id'
         }
     },
@@ -29,7 +29,7 @@ Multicompany.init({
 }, {
     sequelize: db,
     modelName: 'Multicompany',
-    tableName: 'Multicompanies', // Ensure this matches the SQL table name
+    tableName: 'Multicompanies',
     timestamps: false
 });
 
