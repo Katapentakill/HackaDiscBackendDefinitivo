@@ -7,19 +7,19 @@ module.exports = {
       'Roles',
       [
         {
-          role_id: 1,
+          id: 1,
           rol_name: 'Admin',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 2,
+          id: 2,
           rol_name: 'CompanyManager',
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          role_id: 3,
+          id: 3,
           rol_name: 'AreaManager',
           createdAt: new Date(),
           updatedAt: new Date()

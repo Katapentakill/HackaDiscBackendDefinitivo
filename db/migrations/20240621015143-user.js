@@ -37,11 +37,11 @@ module.exports = {
         onDelete: 'SET NULL'
       },
       company_id: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
           model: 'Multicompanies',
-          key: 'main_company_id'
+          key: 'sub_company_id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
