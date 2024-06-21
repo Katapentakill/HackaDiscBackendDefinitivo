@@ -15,6 +15,7 @@ class Server {
 
         this.paths = {
             auth: '/api/auth',
+            evaluation: "/api/evaluation"
         }
 
         // Conectar a la base de datos
@@ -48,7 +49,8 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.paths.auth, require('../routes/authRoutes')); // Asegúrate de tener definidas tus rutas correctamente
+        this.app.use(this.paths.auth, require('../routes/authRoutes'));
+        this.app.use(this.paths.evaluation, require('../routes/evaluationRoutes')); // Asegúrate de tener definidas tus rutas correctamente
     }
 
     listen() {
