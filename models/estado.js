@@ -1,23 +1,24 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db/connection");
 
-class Role extends Model {}
+class Estado extends Model {}
 
-Role.init({
-    role_id: {
+Estado.init({
+    Estado_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
         allowNull: false
     },
-    rol_name: {
+    NombreEstado: {
         type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     sequelize: db,
-    modelName: 'Role',
-    tableName: 'Roles', // Ensure this matches the SQL table name
+    modelName: 'Estado',
+    tableName: 'Estado', // Ensure this matches the SQL table name
     timestamps: false
 });
 
-module.exports = Role;
+module.exports = Estado;
