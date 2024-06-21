@@ -6,27 +6,42 @@ class User extends Model {}
 User.init({
     email: {
         type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true
     },
     password: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     role_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Roles',
+            key: 'role_id'
+        }
     },
     nombre: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     company_id: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        references: {
+            model: 'Multicompanies',
+            key: 'main_company_id'
+        }
     },
     area_id: {
         type: DataTypes.INTEGER,
         allowNull: true
-    },
+    }
 }, {
     sequelize: db,
     modelName: 'User',
+    tableName: 'Users', // Ensure this matches the SQL table name
+    timestamps: false
 });
 
 module.exports = User;
