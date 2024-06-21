@@ -2,29 +2,56 @@ const { Op } = require('sequelize');
 const Evaluation = require('../models/evaluation');
 const db = require('../db/connection'); // Asegúrate de ajustar la ruta según sea necesario
 
-// Método para calcular el promedio de una habilidad específica para un usuario
-const getAverageSkillForUser = async (req, res) => {
-  const { userId } = req.params; // Obtener el id de usuario desde los parámetros de la solicitud
+const evaluationController = {
 
-  try {
-    const average = await Evaluation.findOne({
-      attributes: [
-        [db.sequelize.fn('avg', db.sequelize.col('adaptability_to_change')), 'average']
-      ],
-      where: {
-        user_id: userId // Filtrar por el id de usuario
+  async getAllEvaluations(req, res) {
+    try {
+      const evaluations = await Evaluation.findAll();
+      res.status(200).json(evaluations);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  async getEvaluationById(req, res) {
+    const { id } = req.params;
+    try {
+      const evaluation = await Evaluations.findOne({
+        where: { user_id: id }
+      });
+      if (evaluation) {
+        res.status(200).json(evaluation);
+      } else {
+        res.status(404).json({ error: 'Evaluacion no encontrada' });
       }
-    });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 
-    res.json({ average: average.dataValues.average });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-};
+  // Método para calcular el promedio de una habilidad específica para un usuario
+  async getAverageSkillForUser (req, res) {
+    const { userId } = req.params; // Obtener el id de usuario desde los parámetros de la solicitud
 
-// Método para calcular el promedio de todas las habilidades de evaluación para un usuario en la fecha más reciente
-const getPromedyTotalSkills = async (req, res) => {
+    try {
+      const average = await Evaluation.findOne({
+        attributes: [
+          [db.sequelize.fn('avg', db.sequelize.col('adaptability_to_change')), 'average']
+        ],
+        where: {
+          user_id: userId // Filtrar por el id de usuario
+        }
+      });
+
+      res.json({ average: average.dataValues.average });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+
+  // Método para calcular el promedio de todas las habilidades de evaluación para un usuario en la fecha más reciente
+  async getPromedyTotalSkills (req, res)  {
     const { userId } = req.params; // Obtener el id de usuario desde los parámetros de la solicitud
   
     try {
@@ -59,12 +86,8 @@ const getPromedyTotalSkills = async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
-  };
-
+  },
+}
 // Agrega métodos similares para las otras habilidades de evaluación y para cada usuario
 
-module.exports = {
-  getAverageSkillForUser,
-  getPromedyTotalSkills
-  // Agrega aquí los otros métodos para las habilidades de evaluación y usuarios
-};
+module.exports = evaluationController

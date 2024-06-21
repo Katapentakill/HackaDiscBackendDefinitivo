@@ -4,13 +4,15 @@ const db = require("../db/connection");
 class Evaluation extends Model {}
 
 Evaluation.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'Workers', // This references the Workers table
-            key: 'user_id'
-        }
     },
     adaptability_to_change: {
         type: DataTypes.INTEGER,

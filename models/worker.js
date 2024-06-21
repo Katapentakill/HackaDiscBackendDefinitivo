@@ -12,10 +12,6 @@ Worker.init({
     company_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'Multicompanies',
-            key: 'main_company_id'
-        }
     },
     area_id: {
         type: DataTypes.INTEGER,
@@ -37,12 +33,13 @@ Worker.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    Estado_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Estado',
-            key: 'Estado_id'
-        }
+    company_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 }, {
     sequelize: db,

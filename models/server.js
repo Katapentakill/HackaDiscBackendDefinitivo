@@ -14,8 +14,12 @@ class Server {
         this.port = process.env.PORT || 3000;
 
         this.paths = {
-            auth: '/api/auth',
-            evaluation: "/api/evaluation"
+            auth: '/auth',
+            evaluation: "/evaluation",
+            worker: '/workers',
+            multicompany: '/multicompany',
+            user: '/user',
+            role: '/role'
         }
 
         // Conectar a la base de datos
@@ -51,6 +55,10 @@ class Server {
     routes() {
         this.app.use(this.paths.auth, require('../routes/authRoutes'));
         this.app.use(this.paths.evaluation, require('../routes/evaluationRoutes')); // Asegúrate de tener definidas tus rutas correctamente
+        this.app.use(this.paths.multicompany, require('../routes/companyRoutes'));
+        this.app.use(this.paths.worker, require('../routes/workerRoutes'));
+        this.app.use(this.paths.user, require('../routes/userRoutes'));
+        this.app.use(this.paths.role, require('../routes/roleRoutes'));
     }
 
     listen() {
