@@ -12,17 +12,31 @@ const evaluationController = {
       res.status(500).json({ error: error.message });
     }
   },
-
-  async getEvaluationById(req, res) {
-    const { id } = req.params;
+  async getRecentEvaluation(req, res) {
     try {
-      const evaluation = await Evaluations.findOne({
-        where: { user_id: id }
+      const evaluation = await Evaluation.findOne({
+        order: [['date', 'DESC']],
+      });
+      if (evaluation) {
+        res.status(200).json(evaluation.user_id);
+      } else {
+        res.status(404).json({ error: 'Evaluacion no encontrada' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  async getEvaluationById(req, res) {
+    const { user_id } = req.params;
+    console.log(req.params);
+    try {
+      const evaluation = await Evaluation.findOne({
+        where: { user_id: user_id }
       });
       if (evaluation) {
         res.status(200).json(evaluation);
       } else {
-        res.status(404).json({ error: 'Evaluacion no encontrada' });
+        res.status(404).json({ error: 'Evaluacion no encontrado' });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
